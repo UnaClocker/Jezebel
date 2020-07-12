@@ -1,0 +1,36 @@
+Hopefully you're reading this before beginning work on this wonderful source.
+First of all, I left NO comments in the source, I don't waste time doing it
+while I'm programming, and I'm not about to waste time doing it now. I just
+felt that it was a good time to release the source to Jezebel. I am
+releasing it under CopyLeft. If you've never heard of it, read GPL.HTM that
+came with this, or check out www.gnu.org for even more information. What it
+is, is that I retain copyright of the source, but anyone can add to or
+modify the source to fit their needs, or to make the game better, and then
+they can pass the modified source on. But they can not distribute the
+modified program without the source. This idea is to prevent people from
+doing what Cott Lang did to the Telegard source when he made Renegade.
+
+I wrote this game in November 1996. I worked on it about 18 hours a day
+or more because I was about to leave for Job Corp in December, and knew
+that I would have no access to a computer there. I stayed in Job Corp for
+7 months, and when I got back had little or no desire to continue working
+on the game. So here it is, work on it for me. If you add something to the
+game, try to put awesome ansi in your addition just like the rest of the
+game has. I've had numerous requests for Inter-BBS support. Especially
+Real time InterBBS using the internet (somehow..). The game is also freeware
+in this realease, I took out the reg routines. The source might still be
+there if you're interested in how I did it and nobody cracked it.
+This game has ALOT of tricked out routines in it also, such as the top
+scores screen, it changes size depending on how many players there are in
+the game. That was ALOT of fun to write. Also, the user routines are almost
+multi-node capable, as far as it checking to make sure the other node didn't
+sort the high scores and moved the current user record to a different
+position in the file. Also has support for deleting inactive players without
+screwing up the dynamic sizing on the high scores. :) I used the DDPlus
+doorkit on this game, but did change it alittle bit to get it to work the
+way I wanted. Also, the DELAY command in Turbo Pascal will TOTALLY lock
+Pentium II's and OS/2 systems until the DELAY is done. Not sure when Borland
+will release a fix for it. Feel free to port the source to Win32 or OS/2 if
+you feel the desire. ;) Please send me your changed source when you change
+it so that I can put it up on the webpage other people to work from also.
+unaclocker@gmail.com

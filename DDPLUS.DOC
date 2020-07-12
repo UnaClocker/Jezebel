@@ -1,0 +1,1841 @@
+        DDPLus Version 7.1 Door Driver Toolkit for Turbo Pascal 7.0
+     NOTE:  Items with marked with a "*" have changed since version 7.0
+
+                                DISCLAIMER
+                                ----------
+ The contributors have taken every precaution to insure that no harm or
+ damage will occur on computer systems operating this package. Nevertheless,
+ they shall NOT be held liable for whatever may happen on your computer
+ system or to any computer systems which connects to your own as a result of
+ operating this package. The user assumes full responsibility for the correct
+ operation of this software package, whether harm or damage results from
+ software error, hardware malfunction, or operator error. NO warranties are
+ offered, expressly stated or implied, including without limitation or
+ restriction any warranties of operation for a particular purpose and/or
+ merchantability. If you do not agree with this then do NOT use DDPLUS.
+
+
+              COPYRIGHT INFORMATION ON DDPLus TOOLKIT (C)
+              ---------------------------------------------------
+ Most of the source code for the DDPlus package comes from the original Door
+ Driver Kit 5.0 and that code is copyrighted by Scott Baker and Derrick
+ Parkhurst. This copyright includes all source code and sample doors
+ originated by them. These authors have permitted the original code to be
+ published as Freeware, although they still retain copyrights to their
+ original material.  All other material, other then the original Scott
+ Baker/Derrick Parkhurst items, is Copyrighted by Steven Lorenz and Bob
+ Dalton. The IBBS.ZIP package is copyrighted by Andy Stewart. The
+ RIPLINK.ZIP package is copyrighted by Tom Morgan.  These authors are
+ solely responsible for the content of their portions of DDPlus, not to
+ mention any bugs <grin>.  
+        
+                             LICENSE AGREEMENT
+                             -----------------
+ The program source code, support files, and documentation NOT part of the
+ the original Door Driver Kit package are copyrighted products of Steven
+ Lorenz and Bob Dalton.  The IBBS.ZIP package is copyrighted by Andy Stewart.
+ These authors reserve all rights to these products. This is protected by
+ the United States of America (USA) and International Copyright Laws. You
+ may modify or use the the enclosed source code for your programs but you
+ may NOT distribute DDPLUS source code modifications as part of the DDPLUS
+ package. In cases where this may infringe on the Copyrights of the original
+ Door Driver Kit authors, then their Copyrights will take precedence.
+        
+ Tampering with or altering the contents or integrity of the DDPlus software
+ package is prohibited IF you intend to give a copy of the DDPLus archive
+ package to others. No fee may be charged by any agency beyond the cost of
+ distributing copies. The bottom line folks: Don't make any changes in this
+ package and redistribute as coming from us, and you can't re-label or modify
+ the DDPLUS package and market it as your own!
+
+            WHAT'S IT GOING TO COST YOU TO USE THIS PACKAGE?
+            ------------------------------------------------                     
+ Nothing! The DDPlus package is distributed as FREEWARE and requires NO
+ registration and NO royalties for door products produced with this package.
+ It would be nice though if you credit the DDplus Door Kit in your program
+ with a line that says something like "Another DDPLus Door Program" or
+ something similar and in the documentation so that others will know it is
+ a product based on the DDPlus kit. The individual authors of this package
+ will NOT however turn down a registered copy of any program created with
+ this package, if it is offered to us in appreciation for all the work
+ involved <grin>. These will ALWAYS be gladly accepted! (Hey, we ARE
+ sysops as well as programmers after all!!)
+     
+                             INTRODUCTION:
+                             ------------
+ DDplus is a package of pascal units for use in creating programs for
+ use with Bulletin Board Systems (BBS).  These programs are called "DOORS"
+ and are stand alone products which "link" with the BBS to allow users
+ to enjoy games and utilities of all types.  The DDPlus package takes the
+ tedium out of Door programming by allowing you to concentrate on the
+ writing of door specific code and not having to worry about details such
+ working with fossils, multi-tasker support, handling communications I/O and
+ the processing of BBS drop Files. This package does NOT teach Turbo Pascal
+ programming. It assumes that you know basic Turbo Pascal programming
+ already, and desire to put that knowledge to use by designing a door for
+ a BBS.   
+
+                    Features of DDPLUS and the DDPLus Kit:
+                    --------------------------------------
+ 
+ 1. IRQs 0-15 are supported.
+ 
+ 2. Comports 1-4 supported.
+ 
+ 3. Selectable Port Addresses.
+ 
+ 4. DesqView aware routines.
+ 
+ 5. Detects Rip.
+ 
+ 6. Fast and correct ansi color routines.
+ 
+ 7. Lock baud and comm baud rates to 115,200
+ 
+ 8. Built in Windows, WindowsNT and OS/2 time slice releasing.
+ 
+*9. Fossil support to 115,200 using extended fossil calls.
+    Since release of 7.0 we have received the specifications on how to
+    set the baud rate for highspeed bnu fossils.  Now port speeds of
+    57,600 and 115,200 for both X00 and BNU can be handled by either
+    the FOSSIL or the XFOSSIL options.  Once again FOSSIL will initialize
+    the detected fossil to the port speed and XFOSSIL will accept the
+    fossil as-is with no initialization.
+
+10. Local video can be toggled off to save processing time in multitasking
+    windows or to give some user privacy when competing in game against the
+    sysop.
+
+11. Multiple control files can be accessed by a command line parm.
+
+12. Will work with OR without the presence of a fossil.
+
+13. ALL source code is provided and you can modify it to do whatever you need
+    it to do!  Just be sure to document your changes as new versions of
+    DDPLUS come out periodically and will not have your changes in them.
+    A better idea would be to make a separate add on unit for use with
+    the main DDPLUS units so that you do not have to edit the DDPlus
+    units each time a new DDPlus version comes out.
+                
+14. A Turbo Vision program skeleton is provided for use as a door
+    setup/configuration/editor program.
+                
+15. An Inter BBS Door unit is provided so you can make your door an
+    inter BBS one if you desire.
+
+*18. DDSETUP.EXE is provided for distribution with your Door program to help
+    users configure the required CTL file for use with your door. It is
+    FREEWARE.
+
+19. A file/record locking unit is provided to allow you to design
+    multi-node/online multi-player games.
+
+20. An automatic overlay unit is included for making programs overlays to
+    conserve memory and automatically initializes them.
+
+21. RipLink is now provided so that you can build in a local display of
+    RIP graphics for a using sysop.
+
+                             REQUIREMENTS:
+                             ------------
+ At this point in time the only requirements are that you must be using
+ Borland Turbo Pascal 7.0.  Most of the kit should also work with version
+ 6.0 as well, but we no longer guarantee it.  If you use file locking and
+ sharing then users must be notified that SHARE is required to be loaded
+ prior to use. The same goes for ANSI.SYS as well if ANSI graphics are used.
+
+                            Files Included
+                            --------------
+ Below is a listing of all files for the this Package. Feel free to give
+ out copies of the ENTIRE archive package but please make sure all the
+ files below are in that package:
+
+ DVAWARE.ASM  - DDPlus support source code unit.
+ SLASYNC.ASM  - DDPlus support source code unit.
+ SAMPLE1.BAT  - A sample BAT file which runs a DDPlus game program from the
+                  game directory. Feel free to distribute these batch
+                  files with your DDPLus game package creations.
+ SAMPLE2.BAT  - A sample BAT file which runs a DDPlus game program from any 
+                  node directory. Feel free to distribute these batch
+                  files with your DDPLus game package creations.
+ SAMPLE3.BAT  - A sample BAT file identical to the one I use on my Single
+                  node WildCat Support BBS to run my DDPlus Games. Feel free
+                  to distribute these batch files with your DDPLus game
+                  package creations.
+*GAME.CTL     - Un-edited and heavily commented Control file for use with
+                 all doors produced with the DDplus package.  Provided
+                 mainly for information as DDSETUP.ZIP now provides a VGA
+                 setup program for inclusion with programs made with this
+                 package.
+ FILE_ID.DIZ  - Ascii Description File for BBS Sysops on DDPLUS71.ZIP
+*DDPLUS.DOC   - The file you are now reading.
+*HISTORY.DOC  - History file of changes made to the DDPlus package.
+ DVAWARE.OBJ  - DDPlus support unit (compiled)
+ SLASYNC.OBJ  - DDPLus support unit (compiled)
+ ASYNC2.PAS   - DDPlus support source code unit.
+*COMIO.PAS    - DDPlus support source code unit.
+*DDANSI2.PAS  - DDPlus support source code unit.
+ DDFOSSIL.PAS - DDPlus support source code unit.
+*DDIGI.PAS    - DDPlus support source code unit (Digiboard support)
+*DDOVR.PAS    - DDPLus support source code unit.
+*DDOVR2.PAS   - DDPlus support source code unit.
+*DDPLUS.PAS   - Main DDPlus source code unit. Needs to be compiled.
+*DDSCOTT.PAS  - DDPlus support source code unit.
+ BOOKS.TXT    - List of useful Borland Pascal reference books.
+ SWAG.TXT     - Information on a programmers best friend -SWAG!
+ ANSIMENU.ZIP - A ANSI Menu routine with example program and
+                 instruction file. A simple but effective way to
+                 add ansi menus to your door program. Includes a sample
+                 door, with source code, to demonstrate the use of the
+                 ansimenu unit.
+*DDSETUP.ZIP  - VGA Setup program for distribution with doors you
+                 make using the DDPlus Package.  Freeware.
+ ELOG.ZIP     - An error log unit with explanation text file for
+                 use in your door programs. Can make bug detection
+                 and extermination of the little critters much easier.
+                 I highly recommend that you use this unit in ALL your
+                 door programs!!!  Revised to make it much easier to
+                 install then before.
+ IBBS.ZIP     - An Inter-BBS unit which can be used with DDplus to make
+                 an Inter-BBS capable door program.
+ LOCKING.ZIP  - A unit for use with your program and DDPlus that will
+                 give you the capability to make a multi-node and online
+                 multi-user door program. Includes a fully operational
+                 sample door, with source code,  which demonstrates the
+                 principles involved in file/record locking.
+ MACROKEY.ZIP - A small and simple unit with instruction file to allow
+                 you to add macro-recording and play-back to your
+                 door programs.
+ OVERLAY.ZIP  - A sample overlay initialization unit. Can be used to
+                 automatically provide overlay support. Comes with a
+                 text file to help explain it's use.
+*RIPLINK.ZIP  - RipLink units to allow you to show RIP graphics on
+                 the sysops screen! Works with RIP 1.54.
+ SETUP.ZIP    - A Turbo Vision skeleton program you can make into a
+                 door setup/configuration/editor program.
+*SYSOP.ZIP    - Sample of documentation I use with my door programs, to
+                 include the all important SYSOP.DOC which explains how
+                 sysops should set up the program to work on their BBS.
+                 Feel free to modify these files for your door products
+                 and distribute it with YOUR DDPlus creations. All we ask
+                 is that you keep us in the credits section of the
+                 document file. Hey, it's only fair we get some credit....
+
+                  Installation and Preparation for Use
+                  ------------------------------------
+ 
+ 1. Move this package to a temporary directory and "unzip".
+
+ 2. Use Turbo Pascal 7.0 to compile DDPLUS.PAS (or DDPLUSR.PAS, included
+    in RIPLINK.ZIP, if you plan to use RipLink in your door programs).
+
+ 3. AFTER compiling, move ALL files ending with the extension TPU or OBJ
+     to your Pascal units directory.
+
+ 4. That's all you have to do!  The package is now ready to use in your
+    door programs.
+
+                         WHAT ARE DROP FILES?
+                         --------------------
+ When the BBS transfers control to a door program it provides a file,
+ called a "DROP FILE" to the door program which contains essential
+ information such as the users name, time remaining, com port, connect
+ speed, etc..  The format for this "DROP FILE" varies from BBS to BBS.
+ At this time the DDPlus Package supports the following drop file formats:
+
+       DOORSYS - The DOOR.SYS format (Wildcat!,GAP,TAG, etc)
+      *DORINFO1 - Remote Access,others(uses DORINFO1.DEF**)
+       RBBS - Rbbs version 16.1+  (uses DORINFOx.DEF*)
+       QUICK - Quickbbs,Force,R.A. (uses DORINFOx.DEF**)
+       PCB14 - Pcboard version 14
+       PCB15 - Pcboard version 15
+       PHOENIX - Phoenix bbs (uses INFO.BBS)
+       SPITFIRE - Spitfires bbs (uses SFDOORS.DAT)
+       WWIV - WWIV bbs (uses CHAIN.TXT)
+       TRIBBS - TriBBS software (uses TRIBBS.SYS)
+       2AM - JUMPER.DAT
+
+*  New BBS type DORINFO1 uses the dorinfo1.def for dropfile name.
+   PCBoard 12 and Callinfo support hereith ends. These two obsolete
+   dropfiles are no longer supported.
+
+                      THE DOOR CONTROL FILE (CTL)
+                      ---------------------------
+ To run properly DDPlus requires configuration information from a control
+ (CTL) file.  For your use a GAME.CTL file is enclosed with this package.
+ The GAME.CTL file is unedited and heavily commented so that you might
+ understand what each line does.  Note that lines beginning with the ";"
+ character are NOT read by the DDPlus program unit.  This CTL file tells
+ the DDPlus portion of your program how to act, what drop file to use, etc.
+ It should be noted that a program produced with DDPlus will NOT function
+ without the presence of a CTL file.  The CTL file can be renamed, such
+ as GOC.CTL or RAW.CTL and is loaded and processed automatically when your
+ program calls "INITDOORDRIVER" (explained below).  It has been our 
+ experience that most problems experienced by users of doors made with
+ DDPlus are from improperly configured CTL files.  To help correct this
+ Steven Lorenz has created a standard CTL setup program which can be
+ distributed with your programs and is FREEWARE.  This setup program
+ (DDSETUP.ZIP) provides VGA and mouse support and is very professional
+ is appearance.  It is also suggested that you provide a copy of the
+ GAME.CTL file with your door packages for user information purposes and
+ as a backup in those rare cases where the CTL setup program does not
+ function correctly because of an odd system configuration.
+
+                       Command Line Parameters
+                       -----------------------
+ DDPlus supports several parameters which may be specified on the command
+ line. These parameters are handled automatically when you call 
+ "INITDOORDRIVER".  An example would be if you wanted to run the GodFather
+ of Crime Door Game locally then you would type the Command Line
+ parameter:  GOC /L
+ The following is a list of DDPlus supported Command Line Parameters.  
+
+      "/Bxxxxx"   This tells GAME.EXE to lock its baud rate at
+      xxxxx.  In order to get the most efficiency out of a high speed
+      error correcting modem (9600 baud or above), you may lock the baud
+      rate to a speed higher than what the caller is actually using.
+      By locking the baud to say 38,400, the modem can compress text data
+      that is being sent and achieve a baud rate much higher than the
+      actual transmission rate.
+      This will lock the baud rate at the same value for all nodes that
+      use this command line.  If you perfer a more selective way to lock
+      baud use 'LOCKBAUD' command in the GAME.CTL file.
+
+      "/Cx"     (where x is 1..4) This specifies a comport number.
+      Some bbs software does not create door information files (dropfiles)
+      that contain the comport number.  If your bbs does have a comport
+      listed in the dropfile then there is no need for this parameter.
+      The default is comport 0, local mode.
+
+      "/E" - Expanded Memory Specification If your machine has over one
+      megabyte of memory, then you may have some available.  GAME.EXE can
+      utilize EMS to improve game performance and reduce conventional
+      memory requirements.
+      This command will tell GAME.EXE   to use EMS memory to hold its
+      overlay buffer.  Otherwise disc area may be used to hold this buffer.
+      This needs a memory manager and when enabled and is compatible with
+      DESQview.  Default is NOT to use any available EMS.
+
+     *Some authors want to have their door run maintenance.  The
+      maintenance mode now is set and does not access a dropfile.  But
+      the author must still check for bbs_software=0 to flag this as a
+      maintenance run.
+
+     *"/F"      This is a generic maintenance mode. It logs
+      into the game with the name "SYSTEM MAINTENANCE" in local mode.
+      You can use it if your program requires a nightly maintenance
+      or something similar.
+
+     *"/H"      This is a generic maintenance mode. It logs
+      into the game with the name "SYSTEM MAINTENANCE" in local mode.
+      You can use it if your program requires a nightly maintenance
+      or something similar.
+
+     *It is left to the programmer now to either block these options
+      or to use them to actually do something when switched.
+
+      "/L"      This tells GAME.EXE to load up in LOCAL mode.
+      This is good for testing or when a sysop just wants to "try out" the
+      door without messing with his BBS setup.  The "/L" mode will ask the
+      user for his name and run the door in local mode.
+
+      "/Nx"     (where x is 1..9) This specifies a "node number".
+      Some bbs software support multinode environments in which you must
+      know the node number of the drop file to use. For example, RBBS-PC
+      uses DORINFOx.DEF. If you specified "/N2" then GAME.EXE would use
+      DORINFO2.DEF.
+
+      "/Mx"     (where x is up to 2 filename acceptable characters)
+      Used to specify one of Multiple control files.  If you have created
+      more than one GAME.CTL file (GAME1.CTL, GAME2.CTL, etc.) for each
+      node or network PC then you can select the one you want by using
+      the /M parm.
+      Example:  "/M2" will force GAME.EXE to use GAME2.ctl.
+
+      "/Pyyy"   This specifies the path to the drop files.
+      For example, "/PC:\WILDCAT\WCWORK\NODE1" would tell GAME.EXE to
+      look for the drop file in C:\WILDCAT\WCWORK\NODE1. If this is left
+      out the program assumes the drop file is local.
+
+      "/R"    Forces local RIP, if supported by the Door Program. Use
+      AFTER the "/L" parameter if running the door locally. Use this
+      with Doors which have RipLink built in to them to force display
+      of RIP on the sysops screen.  Default is No Local RIP otherwise.
+      
+      "/V"    This command will tell GAME.EXE not to show any display
+      on the local screen.  Only a colored screen and a message will be
+      displayed.  The cursor will not move as it will be turned off.
+      Saves a little processing on multi-tasking systems.
+
+      "/W"      This flags the program that a network is present even
+      though no multitaskers are detected.  This is useful if the door is
+      run on a network such as Novell that doesn't use multitaskers.
+
+                       Special Note on RIP Support
+                       ---------------------------
+ DDplus can detect if RIP is present but YOU must program in any code to
+ make use of RIP.  The extent of RIP support is to provide for both
+ detection AND to pass a variable which tells your program that the
+ door user has RIP.  RipLink is also provided to enable your RIP commands
+ (Version 1.54 or below) to be displayed on the sysops local screen.
+
+                   Special Note on Multi-Tasker Support
+                   ------------------------------------
+ DDplus can detect the presence of DesqView, OS2, Windows 3.1, and Windows
+ NT and provide automatic time slice releasing to them. All with only
+ minimal coding required on your part.
+*Detect multi-taskers now check for OS/2 first then other taskers.
+*We have added int $28 to the Os/2 timeslicer.  This gives up the time
+ slice as well as idles dos while waiting for character input per any
+ Int $21 call.
+
+ --------------------------------------------------------------------------
+ SPECIAL NOTE:  The following sections are from the original door driver
+ documentation from Scott Baker and have been changed and added to in 
+ order to allow them to be consistent with the the updates reflected in
+ the DDPlus package.
+ --------------------------------------------------------------------------
+
+                       Overview of DDPlus Routines
+                       ---------------------------
+ The procedures, functions, and variables in DDPLus usually fall in one
+ of the following categories:
+
+              * INPUT [INP]
+
+                        Get information from the user who is online.
+                        Example: SREAD() which performs the
+                        functional equivelant of READLN().
+
+              * OUTPUT [OUT]
+
+                        Send information to the user. Example:
+                        SWRITE() which performs the equivelant of
+                        WRITE().
+
+              * INFORMATIONAL [INF]
+
+                        Provide information about the user, such as
+                        his name, baud rate, etc. Example:
+                        USER_FIRST_NAME which stores the current
+                        user's first name.
+
+                        Informational variables are usually
+                        read-only, but some can be written to as
+                        well. Use common sense and you should get
+                        by.
+
+              * CONTROL [CTL]
+
+                        Procedures which perform various control
+                        functions over how DDPLUS operates.
+
+ In the sections to follow, all functions/procedures/etc will be placed in
+ one of these categories for ease of use and easy identification.
+
+                         Reference - Procedures
+                         ----------------------
+
+          INITDOORDRIVER(filen: string);                   [CTL]
+
+              This procedure MUST be called before any of
+          DDPlus's features are used. In fact, in most cases it
+          should be the first statement that your program executes.
+          The FILEN variable specifies the filename of the control
+          file that DDPlus will use (i.e. GAME.CTL).
+              InitDoorDriver does a variety of things including
+          loading and processing the control file, reading the drop
+          files, setting up serial I/O. It also sets up an "EXIT
+          Procuedure" which will automatically close down the serial
+          I/O when your program is finished.
+
+          DISPLAYFILE(Filen: String);                      [OUT]
+
+               This Procedure is usefull in that it will transfer an
+          Ascii or Ansi file, and will put "(C)ontinue, (S)top,
+          (N)onstop" to stop an Ascii file from scrolling of the
+          page and thus allowing the user to read this file at his
+          or her own speed.
+
+->        RELEASETIMESLICE                                 [OUT] 
+              This is automatically done while DDPlus is doing any of 
+          the Sread procedures.  It is also done whenever the commands
+          NetUnLock or NetClose are used from the NETFILEP.PAS unit.
+          It is included here so that if you have coded a procedure
+          which takes an abnormally long time to execute or complete you
+          SHOULD add this procedure call from DDPlus to your procedure
+          to give up a time slice to any resident multi-taskers which
+          might be present.
+          
+ ->       PROPELLER(V:Byte);                               [OUT]
+              This procedure provides a flashing/moving "propeller"
+          character on screen for as long as you call this procedure
+          by using a loop. This can be used to show a door user that
+          something is happening, processing, etc..instead of just a
+          blank screen or nothing.  The propeller itself only writes
+          and you must change the value of "V" to get the moving
+          affect.  Here is some sample code which you can use which
+          will show the proper propeller affect we are trying to obtain:
+
+               Example of code which would make use of it:
+
+                 Function  SpeedChar: Char;
+                 var
+                  Ch: Char;
+                 begin
+                  SpeedRead(ch);
+                  SpeedChar := Upcase(ch);
+                 end;
+
+                 { This is a propeller prompt procedure }
+
+                 Procedure TimeReadLoop (var cx:char;var TimesUP : boolean);
+                 var
+                  t : integer;
+                  ch : char;
+                  v  : byte;
+                 begin
+                  TimesUP := false;
+                  t := 0;
+                  v := 0;
+                  cx := #0;
+                  repeat
+                   inc(t);
+                   if t > 1500 then
+                    begin
+                     t := 0;
+                     inc(v);
+                     if v > 22 then
+                     v := 0;
+                     If v < 17 then
+                     case graphics of
+                      3 : Propeller(v);
+                 {    5 : not installed yet }
+                     end;
+                 {    If TimingYes then   } { Timed entry check    }
+                 {    CheckTime(TimesUP); } {                      }
+                    end;
+                   ch := SpeedChar;
+                   If ch <> #0 then cx := ch;
+                  until (cx <>#0 ) or TimesUP;
+                  case cx of
+                  '0'..'9',
+                  'A'..'Z' : Swritec(cx);
+                   else
+                    SwriteC(chr(250));
+                  end;
+                  ReleaseTimeSlice;
+                 end;
+
+                                          
+          PROMPT(var s: string; length: integer; hi: boolean); [INP]
+
+               The prompt procedure is a high-level string input
+          routine. It allows you to specify the maximum length of
+          the input string and if HI is set to true, it will hilight
+          the input in reverse background. The colors for the prompt
+          routine are defined in the control file.
+
+          SCLRSCR;    { ANSI code }                        [OUT]
+
+               This procedure clears the remote side's and the local
+          side's screen.
+
+          SCRLEOL;                                         [OUT]
+
+               This procedure will clear up to then end of the
+          current line. (note: only works when caller has ANSI
+          capabilities)
+
+
+          SET_FOREGROUND(b: byte); {chg SRL to byte }      [OUT]
+
+               The set_foreground procedure sets the current
+          foreground color to the one specified by the byte
+          variable, b. The color is set both on the local side and
+          the remote side if the remote user has ANSI toggled on.
+          The acceptable range for the color is 0-31. Colors 0-15
+          are standard foreground colors and 16-31 represent colors
+          0-15 but in blinking mode.
+
+          SET_COLOR(f,b: byte);  {by S. Lorenz }        [OUT]
+
+               The set_color procedure sets the current foreground
+          color and background and are specified by the variable
+          bytes f and b. The color is set both on the local side and
+          the remote terminal if the remote user has toggled his
+          ANSI on. The acceptable range for the f is 0-31 and b is
+          0-7.  If the color is currently set to foreground or back-
+          ground then that process is skipped.  If a (7,0) is sent
+          then an ansi reset color code is sent.
+
+          SET_BACKGROUND(b: byte);  {chg SRL to byte }     [OUT]
+
+               The set_background procedure sets the current
+          background color to the one specified by the byte
+          variable, b. The color is set both on the local side and
+          the remote terminal if the remote user has toggled his
+          ANSI on. The acceptable range for the color is 0-7.
+
+
+          SGOTO_XY(x,y: integer);                          [OUT]
+
+               Sgoto_xy allows you to position the cursor on the
+          local and remote screen. The valid range for X is 1 to 80
+          and the valid range for Y is 1 to 24.
+
+          SREAD_CHAR(var c: char);                         [INP]
+
+               This procedure waits for a character to be pressed
+          and then returns that character in the character variable.
+          No echoing is performed (i.e. the user will not see the
+          key he pressed). If you wish echoing, you must again write
+          the character with SWRITE below. This routine is useful
+          for writing your own lowlevel readln routines or
+          performing "hot-key" operations. It is a direct
+          replacement for CH:=READKEY.
+
+          SREAD(var s: string);                            [INP]
+
+               The sread procedure accomplishes the equivilant of
+          the Turbo Pascal procedure READLN. A string is read from
+          the user and wher the CR character is obtained, the
+          procedure exits with the string stored in the string
+          variable, s.
+
+          SREAD_NUM(var i: integer);                       [INP]
+
+               The sread_num procedure is almost identical to the
+          sread procedure except it will read an integer variable
+          instead of a string. Only the characters 0-9 are allowed
+          to be entered by the user. The value returned will be in
+          the range of -32768 to +32768.
+
+
+          SREAD_NUM_BYTE(var b: byte);                     [INP]
+
+               The sread_num_byte procedure is almost identical to
+          the sread procedure except it will read an byte variable
+          instead of a string. Only the characters 0-9 are allowed
+          to be entered by the user. The value returned will be in
+          the range of 0 to 255.
+
+
+          SREAD_NUM_WORD(var w: word);                     [INP]
+
+               The sread_num_word procedure is almost identical to
+          the sread procedure except it will read an word variable
+          instead of a string. Only the characters 0-9 are allowed
+          to be entered by the user. The value returned will be in
+          the range of 0 to 65535.
+
+
+          SREAD_NUM_LONGINT(var l: longint);               [INP]
+
+               The sread_num_longint procedure is almost identical
+          to the sread procedure except it will read an longint
+          variable instead of a string. Only the characters 0-9 are
+          allowed to be entered by the user. The value returned will
+          be in the range of -2147483648 to +2147483647.
+
+          SWRITE(s: string);                               [OUT]
+
+               The swrite procedure is the equivilant of the Turbo
+          Pascal WRITE procedure. Swrite will simultaniously write
+          to both the local screen and the remote terminal. No CR/LF
+          sequence is added to the end of the string. (note: You may
+          also use WRITE(SOUTPUT,s))
+
+
+  ->      SWRITEXY(x,y: integer; s: string);                     [OUT]
+
+               The swritexy procedure is the equivilant of the Turbo
+          Pascal GOTOXY followed with a WRITE procedure. SwriteXY will
+          goto to the screen position x,y and then simultaniously write
+          to both the local screen and the remote terminal. No CR/LF
+          sequence is added to the end of the string.
+
+  ->       SWRITEC(ch: char);                                     [OUT]
+
+               The swritec procedure is like a swrite but only a single
+          character is written to both the local and remote terminal.
+
+
+  ->      SELECTANSI(ch:Char, A:String);                   [OUT]
+
+           Are you are tired of having lots of individual ANSI files
+            cluttering up the program directory?  If you are then
+            why not build an ANSI Resource file which contains ALL
+            the ANSI files in ONE file?  This command is called from
+            your own program and the pulls out a selected ansi screen
+            and displays it. This command is new to DDPlus 7.0.
+            Use it in your own program as follows:
+            
+            Procedure ShowAnsiMenu(ch:char, A:String);
+
+             Procedure ShowAnsiMenu;
+              begin
+               ch:=1;
+               A:=MENU\MENU01.ANS';
+               SelectAnsi(ch, A);
+              end;
+
+            Note - this procedure call goes into your unit calling
+             DDplus.  So you can just say ShowAnsiMenu('1') and show
+             the first ansi menu.  You can use any  character like 'a', 
+             'X' or anything you can think of.  Use a separate char for
+             each ansi screen that you put together and add to the
+             resource file. The second variable is a string showing
+             the path and file name to that ansi resource file.
+
+            The following is an explanation of what must be done to 
+             make the actual ANSI resource file so this can work.
+
+            I did my ansi scenes in Thedraw and saved them at a length
+              of 200. I then took them into the TP editor and appended
+              them to the end of  each other.  As I did this I inserted
+              the selecting character at the front of each line.  For
+              each new ansi file use a different character. Then save
+              this file, I call mine menu01.ans.  All these files must
+              be static, they can't be changable.  Use the normal
+              Displayfile for those things like ansi bulletins and other
+              things that you might change.
+          
+          SWRITELN(s: string);                             [OUT]
+
+               The swriteln procedure is the equivilant of the Turbo
+          Pascal WRITELN procedure. Swrite will simultaniously write
+          to both the local screen and the remote terminal. A CR/LF
+          sequence is appended to the end of the string. (note: You
+          may also use WRITELN(SOUTPUT,s))
+
+          DDASSIGNSOUTPUT(f: text);                        [CTL]
+
+               This procedure assigns the simultanious output
+          channel to a text file. This is done automatically by
+          INITDOORDRIVER to SOUTPUT (i.e. DDASSIGNSOUTPUT(SOUTPUT).
+          But, if you wish to assign it to a different file, you may
+          do it with this procedure. For example:
+
+          DDASSIGNSOUTPUT(my_output_file);
+          rewrite(my_output_file);
+          writeln(my_output_file,'This will go to both local and '+
+                                  'remote.');
+
+                          Reference - Functions
+                          ---------------------
+
+          SKEYPRESSED: Boolean;                            [INF]
+
+               SKEYPRESSED will return TRUE if a key has been
+          pressed and is waiting to be read and FALSE if no key has
+          been pressed. It is the equivelant of Turbo Pascal's
+          KEYPRESSED function.
+               This also allows the program to pause until the user
+          presses a key. When used in a loop like this it stops
+          everything until user input occurs.
+
+               Repeat Until skeypressed;
+
+
+          TIME_LEFT: Byte;                                 [INF]
+
+               The time_left function returns the amount of time
+          left in minutes. This time is computed automatically by
+          DDPLUS for you.
+
+                        USE OF FUNCTION KEYS               [OUT]
+                        --------------------
+                        
+->       The following function keys have been defined in DDPlus
+         for use by Sysops:
+         
+         F1 = Display available "F" Keys and what they do.
+         F2 = Open a scrolling chat window with the door user.
+         F7 = Increments user time by 5 minutes.
+         F8 = Decrements user time by 5 minutes.
+        F10 = Ejects user from door and returns him/her to BBS after
+               showing a brief message.
+
+         Of the above only the Chat command needs further explanation.
+         When the sysop hits the F2 key a scrolling chat window will
+         be opened in the users current screen display.  When terminated
+         it is up to your code to refresh the screen image on both ends.
+         To help you out in this, the Chat Command has been set to return
+         a "#3" character value to your program.  The way to use this
+         would be to include "#3" as a case statement choice set to
+         execute a current image refresh in your program.  
+
+         Example code snippet:
+    
+          REPEAT
+           CP(3,18);W('Enter Selection: ');{Tells user to make choice}
+           REPEAT
+            XX:=UPCASE(GetChar)            {Waits for typed character}
+           UNTIL XX IN ['A','B','C','#3']; {List of available choices}
+           CASE XX OF
+           'B': BuyCop(Player);            {Call to game procedure}
+           'C': BuyDetective(Player);      {Call to game procedure}
+           '#3':RefreshCurrentScreen;      {Call to refresh procedure}
+          UNTIL XX IN ['A'];               {"A"=quit}
+
+                        Reference - Variables
+                        ---------------------
+          SOUTPUT: text;                                   [OUT]
+
+               This text file is associated with the simultanious
+          output channel. It provides an alternate form of IO than
+          using swrite/swriteln. To use, simply treat SOUTPUT as it
+          were a normal text file. For example,
+
+            Writeln(SOUTPUT,'This is a test'); is the same as
+          swriteln('This is a test');
+
+            When is this useful? When you want to use WRITELN's
+          ability to write various data types (i.e. integers, reals,
+          etc) or it's ability to format output. For example:
+
+            USING SWRITELN: str(integer_data,tempstr);
+          swriteln(tempstr);
+
+            USING SOUTPUT:  writeln(soutput,integer_data);
+
+          ANSION: boolean;                                 [CTL]
+
+              This variable controls whether local output (it has
+          nothing to do with remote) will go directly to the local
+          screen or if it will be sent through DDPLUS's
+          emulation routine. Since the emulation routine is slow in
+          comparison to direct output, this variable is defaulted to
+          FALSE. If you want to send your own ANSI codes to the
+          screen through SWRITE/SWRITELN, then you will have to set
+          this variable to TRUE.
+
+          BAUD_RATE: integer;                              [INF]
+
+               This variable holds the user's current baud rate.
+
+          BBS_SOFTWARE: byte;                              [INF]
+
+              The following numbers indicate software names:
+
+          Number     Supported BBS                   DropFile Format
+          ------     ------------------------        --------------
+            1        Local Only Operation            N/A
+            3        QUICK                           DORINFOx.DEF
+            5        WWIV                            CHAIN.TXT
+            6        PC BOARD Vers 15                PCBOARD.SYS
+            7        RBBS 16.1                       DORINFOx.DEF
+            8        PHOENIX                         INFO.BBS
+          * 9        DORINFO1                        dorinfo1.def
+           10        PC BOARD Vers 14                PCBOARD.SYS
+           11        DOOR system format              DOOR.SYS
+                      (Wildcat 3.X or 4.X,GAP,TAG, etc)
+           12        SPITFIRE                        SFDOORS.DAT
+           13        2AM                             JUMPER.DAT
+           14        TRIBBS                          TRIBBS.SYS
+
+
+          BBS_TIME_LEFT: integer;                          [INF]
+
+              This holds the amount of time that the user had left
+          when he entered the door. It is loaded from the DROP FILE
+          by INITDOORDRIVER. Note that this provides the time left
+          when the user ENTERED the door, not the current time left.
+          The current amount of time left is calculated by the
+          function TIME_LEFT.
+
+          BOARD_NAME: String[70];                          [INF]
+
+               Board_Name hold the current BBS's name that is set in
+          the control file.
+
+          CHARORIGIN: CharOriginType;                      [INF]
+
+               Returns either LocalChar or RemoteChar depending on
+          where the last sread_char was received from. This is
+          mainly used in the chat routine to set different
+          foreground colors for local and remote users.
+
+          COM_PORT: byte;                                  [INF]
+
+               Contains the current com port that serial output is
+          going to. Should be a zero if in local mode.
+
+
+          CURRENT_FORGROUND: byte;                         [INF]
+
+               This variable stores the current foreground color.
+
+
+          CURRENT_BACKGROUND: byte;                        [INF]
+
+               This variable stores the current background color.
+
+          CURLINENUM: byte;                                [INF]
+
+               This variable is used internally to control the more
+          prompt. It is incremented when a line of text is sent out.
+          When it reaches 24, a <more> is sent. This is of course,
+          providing that morechk:=true.
+                                                           [INF]
+          GRAPHICS: byte;
+
+              Graphics specifies a text mode:
+
+              1 : Ascii - General Text
+              2 : Ascii's Extended Graphics and General Text
+              3 : Ansi Color and Graphics
+              4 : Ansi Color and Graphics and Ansi Music (See
+                  Section on ANSI.TPU)
+              5:  RIP Color and Graphics
+         
+          LOCAL: boolean;                                  [INF]
+
+              This boolean is alway true if in local mode and false
+          if in remote mode.
+
+
+          MINTIME: byte;                                   [INF]
+
+               (check this - don't know)
+
+          MORECHK: boolean;                                [CTL]
+
+               This boolean allows you to toggle the more prompts on
+          or off. If TRUE, then DDPLUS will display a "more"
+          prompt every 24 lines.
+
+          NODE_NUM: byte;                                  [INF]
+
+               Returns the current Node that the door is running
+          under. Defaulted to 1 in a single node system. This
+          corresponds directly to the "/Nx" command line parameter.
+
+
+          NOTIME: String;                                  [CTL]
+
+               (check this)
+
+               When the users time limit has been reached this
+          string will be displayed then the user will be returned to
+          the bbs. This string has a default of "(***TIME LIMIT
+          EXCEEDED***)".
+
+          STATFORE: byte;                                  [CTL]
+
+               The status line foreground.
+
+
+          STATBACK: byte;                                  [CTL]
+
+               The status line background.
+
+
+          STATLINE: boolean;                               [CTL]
+
+               A status line pops while any door is in operation if
+          this boolean is set true. The status line contains the
+          user name and the program name an the users time left.
+
+
+          SYSOP_FIRST_NAME: string[30];                    [INF]
+
+               Returns the first name of the sysop. The name is
+          entered into door-driver through the control file.
+
+
+          SYSOP_LAST_NAME: string[30];                     [INF]
+
+               Returns the last name of the sysop. The name is
+          entered into door-driver through the control file.
+
+
+          USER_FIRST_NAME: string[30];                     [INF]
+
+               Returns the first name of the current user of the
+          door program. The user's name is determined from whatever
+          door information is passed from the bbs software.
+
+
+          USER_LAST_NAME: string[30];                      [INF]
+
+               Returns the last name of the current user of the door
+          program. The user's name is determined from whatever door
+          information is passed from the bbs software.
+
+
+          USER_ACCESS_LEVEL: word;                         [INF]
+
+               Returns the access level of the user. The user's
+          access level is determined from whatever door information
+          is passed from the bbs software.
+
+
+          PROGNAME: String[60];                            [CTL]
+
+               This option must be set by the programmer, preferably
+          in the beginning of the door. It sets the name that will
+          be displayed centered on line 25 of the screen. It is
+          simply used for cosmetic purposes.
+
+          SETFORECHECK: boolean; (default=FALSE)           [CTL]
+
+                This variable when set to TRUE will cause DOORDRIV
+          to filter out repetetive SET_FOREGROUND() calls. If for
+          example, you set the foreground to gray, then set it to
+          gray again later while the foreground is still gray, the
+          second call would be ignored. This can spare the user from
+          the slowdown effects of meaningless, repetetive
+          SET_FOREGROUND calls.
+
+                   Reference - Procedure Substitutions
+                   -----------------------------------
+          This section is provided to help you in figuring out which
+          DDPLUS routines you should call to replace turbo's
+          standard I/O routines.
+
+          READKEY:
+
+              Readkey is used in many normal programs to get a
+          single character. (i.e. CHAR:=readey). This can be
+          replaced by SREAD_CHAR(char);.
+
+          WRITELN(xxxx);  (or WRITE(xxxx))
+
+              The writeln procedure is probably the most common and
+          numerous change that you will have to make. DDPLUS
+          provides the SWRITE/SWRITELN procedures to do the job of
+          turbo's write/writeln. In addition, the SOUTPUT file is
+          also available. Let's take a look at some examples:
+
+          Ex 1
+          ----
+           Convert "writeln('Scott was here!');"
+
+              --> swriteln('Scott was here!');
+
+           or --> writeln(soutput,'Scott was here!');
+
+          Ex 2
+          ----
+           int is an integer.
+           Convert "write(int);"
+
+              --> str(int,tempstr); swrite(tempstr);
+
+           or --> write(soutput,int);
+
+          Ex 3
+          ----
+           r is a real.
+           Covert "writeln(r:2:2);"
+
+              ---> str(r:2:2,tempstr); swriteln(tempstr);
+
+           or ---> writeln(soutput,r:2:2);
+
+              As you can see, the SWRITE/SWRITELN method is easier
+          if you are using string type data, but the
+          write(SOUTPUT,xxx) method is better for numerical types.
+          You can use whichever you like.
+
+
+          CLREOL:
+
+              You can replace CLREOL with SCLREOL, but please note
+          that it will only work when the caller has ANSI
+          capabilities. If the caller doesn't have ansi, then he'll
+          get a load of garbage.
+
+
+          CLRSCR:
+
+              CLRSCR can be directly converted to SCLRSCR. This
+          works for either ANSI or non-ANSI users.
+
+          GOTOXY(x,y):
+
+              GOTOXY(x,y) can be converted into SGOTO_XY(x,y), but
+          again, this will only work for ansi users.
+
+          READLN(string_variable) ---> SREAD(string_variable)
+
+          READLN(integer_variable) ---> SREAD_NUM(integer_variable)
+
+          READLN(word_variable) ---> SREAD_WORD(word_variable)
+
+          READLN(long_variable) ---> SREAD_LONGINT(long_variable)
+
+                           REFERENCE - Units
+                           -----------------
+
+ The following is a brief list of the included units and what they do
+ here. 
+
+               *DDPLUS.PAS
+
+               This is the main unit that you need to use.
+
+               *DDANSI2.PAS
+
+               Contains procedures used by DDPLUS to display
+               ANSI on local screen.
+
+               *DDFOSSIL.PAS
+
+               Contains procedures used by DDPLUS to interact
+               with fossil drivers.
+
+               *DDSCOTT.PAS
+
+               Miscellanious procedures used by DDPlus.
+
+
+               *COMIO.PAS
+
+               Medium-level COM I/O used by DDPlus.
+
+               *ASYNC2.PAS/SLASYNC.OBJ
+
+               Internal COM routines.
+
+               *DVAWARE.OBJ
+
+               Routines for support of Desqview
+               
+               *DDOVR.PAS
+
+               Overlayable unit containing code that gets
+               information out of bbs drop files (i.e. DORINFOx.DEF, etc)
+
+               *DDOVR2.PAS
+
+               Overlayable unit that contains code to process
+               control file.
+
+ --------------------------------------------------------------------------
+ SPECIAL NOTE:  The following tutorial was originally authored by Scott
+ Baker and has been modified for use with DDPlus.  The unaltered parts
+ remain copyrighted by him.
+ --------------------------------------------------------------------------
+
+                        HOW TO WRITE A DOOR
+                        -------------------
+ *   Writing a BBS Door - Tutorial by Scott M. Baker
+
+     Doors are programs written for a bulletin board systems
+     to allow the user to perform other tasks than the bulletin
+     board  software  allows.   For example,  a  door  could be
+     anything  from a  bbs lister  to a  multiplayer simulation
+     (such  as  Galactic Warzone,  Yankee  Trader,  Trade Wars,
+     etc).  This  article will  be a  tutorial on  how to write
+     door  programs.  The  programs will  be  written  in Turbo
+     Pascal (version  6 or 7) and  will use  the DDPlus 
+     routines to  provide support for  RBBS, QuickBBS, Wildcat,
+     WWIV, etc.
+
+     Right  now,  we're   just  going  to   stick  with  the
+     DDPLus routines since they are  the routines that I am
+     most familiar with.
+
+                          REQUIREMENTS
+     What you'll need:
+
+     - Turbo Pascal by Borland. Either version 6.0 or
+       7.0 will do.
+
+     - DDPLUS71.ZIP. This is a DDPLUS support
+       package for TP6 and TP7 It includes async
+       support, bbs interfacing, etc. Available from
+       the TANSTAFL BBS (501-741-5699) (FIDO 1:391/3010).
+       If you have a 9600 baud or above modem you can freq
+       it from the TANSTAFL BBS using the magic name of DDPLUS.
+
+     - A basic understanding of Pascal (specifically
+       Turbo   Pascal).  You   don't  need   to  be   a  Pascal
+       wizard or anything, but the more knowledge you
+       have, the better.
+
+                   BASIC ELEMENTS OF A 'DOOR'
+
+       Ok, time to  get started. First lets  talk about the basic
+       elements that a door needs.
+
+       1) Async communications support.
+
+       The door  must be  able to  talk to  the user  through the
+       communications  port.   Support  has  to  be  provided for
+       multiple com ports,  locked baud rates,  etc.  The program
+       also must monitor the presence of the CARRIER DETECT modem
+       line to  make sure  the carrier  is not  dropped while the
+       door is in use.
+
+       2) BBS software interfacing.
+
+       The door needs  to be able  to grab the  user's name, time
+       left,  and  other  associated  information  from  the  bbs
+       software.  Since bbs  programs lack standardization, there
+       are several  different methods  that have  to be accounted
+       for.
+
+       3) Support for ANSI (color) graphics and animation.
+
+       Just about every door has ANSI capabilities these    days,
+       so if  you want  yours to  be seriously  considered, you'd
+       better have it as well.
+
+       DDPlus  will  handle  the  first  two  points  for you
+       automatically when  you call  the INITDOORDRIVER procedure
+       described  below.  DDPlus has  support  for  the third
+       point (ANSI graphics), but you'll need to use your own
+       skills  in deciding  where you  wish  to put  colors, what
+       colors to use, etc.
+
+
+                            DDPLUS PROCEDURES
+
+       There  are a  series  of procedures  that  DDPLUS will
+       provide  to you  for  accomplishing these  tasks.  Without
+       getting too complex, let's discuss a few of them:
+
+       PROCEDURE INITDOORDRIVER(ctl_file_name: string);
+
+       This procedure  initializes the door  support system, comm
+       port,  grabs  the user  name,  and a  few  other necessary
+       things.    The  variable   "ctl_file_name"  is   a  string
+       containing the  name of  the control  file that  your door
+       will use.  For now, let's just ignore the control file and
+       use the sample included with the DD package.
+
+       PROCEDURE SWRITE(out_str: string);
+
+       This is DDPLUS's compliment to  the Write() statement of Turbo
+       Pascal.  The "S"  stands for simultaneous.  Output will be
+       written to both the remote user (through the com port) and
+       the local screen.  "out_str" is the  string containing the
+       data  you wish  to write.   Most of  your output  will use
+       either this or the following SWRITELN procedure.
+
+       PROCEDURE SWRITELN(out_str: string);
+
+       Same  as SWRITE,  except  a carriage  return/line  feed is
+       appended to  the end  of the  string.  This  is similar to
+       TP's writeln statement.
+
+       variable USER_FIRST_NAME: STRING;
+
+       After INITDOORDRIVER  has been called,  this variable will
+       contain the  user's first  name.  The  string will  be all
+       upper-case.
+
+       variable USER_LAST_NAME: STRING;
+
+       Similar to USER_FIRST_NAME, this variable will contain the
+       user's last name.  As with USER_FIRST_NAME, it is only
+       valid after the call to INITDOORDRIVER has been made.
+
+                         YOUR FIRST DOOR
+
+       Now  that  you've  seen  a  few  of  DDPLUS's  support
+       routines, lets put them to  work in the "hello door."  The
+       hello door will  be simply a door  version of the standard
+       hello program.  Meaning that  it displays "hello world" to
+       the screen.  First, a note  about my code, I'll be placing
+       line  numbers  ({1}, {2},  etc)  in the  code.   These are
+       intended for discussion purposes and are not needed in the
+       pascal program itself.
+
+          HLODOOR.PAS:
+
+          {1} Program HelloDoor;
+          {2}
+          {3} uses crt, ddplus;
+          {4}
+          {5} begin
+          {6}   InitDoorDriver('GAME.CTL');
+          {7}   swriteln('Hello World!');
+          {8}   delay(5000);
+          {9} end.
+
+          Experienced pascal programmers will feel a bit insulted by
+          the simplicity of the above program, but it is a necessary
+          step in learning to use door driver.
+
+
+                        COMPILING AND RUNNING THE DOOR
+
+
+          Once you've got  that typed in, then  it's time to compile
+          HLODOOR.  Using either Turbo Pascal version 6.0 or version
+          7.0, compile the program to  disk.  If all goes well, then
+          you'll  be  left  with  HLODOOR.EXE  on  your  hard drive.
+          DDPLUS.DOC  (supplied with  DDPLUS)  includes infor-
+          mation on how to configure /  run the door on your system.
+          For now, let's just worry  about running the door in local
+          mode.  For local mode, type  "/L" on the command line. For
+          example, "HLODOOR  /L" will run  HLODOOR. Since  you are a
+          local user,  the door will  prompt you for  your first and
+          last name.  A remote  user's information would be gathered
+          from  the  bbs information  file  (i.e.  DORINFOx.DEF). We
+          won't worry about that for now.
+
+
+                               ANALYSIS OF CODE
+
+
+          Now lets  go through  the important  lines of  code one by
+          one.
+
+              LINE 3: Uses crt, DDPlus;
+
+          The "uses" statement  is required by  Turbo Pascal to tell
+          TP  which  units we  will  be using.   Obviously,  we need
+          "DDPLUS" for DDPLUS's procedures.  "crt" is required because
+          we use the DELAY procedure.
+
+              LINE 6: InitDoorDriver('Game.CTL');
+
+          This  is   that  all-important   initialization  statement
+          described  somewhere above.   It  tells DDPLUS  to get
+          things all set up and  working.  The 'GAME.CTL' is the
+          name of that "control file" and we won't pay any attention
+          to it for now.
+
+              LINE 7: swriteln('Hello World!');
+
+          This is our  screen output.  It'll  write "Hello World" to
+          both the  user and the  local screen.   Since its SWRITELN
+          and not SWRITE, a carriage  return and line feed also will
+          be sent.  There are several ways that this could have been
+          done. For example:
+
+            {1}   swrite('Hello');
+            {2}   swriteln(' World!');
+
+              - - - or - - -
+
+            {1}   swrite('Hello');
+            {2}   swrite(' World!');
+            {3}   swriteln('');
+
+          The output will be the same in the above situations.
+
+              LINE 8: Delay(5000);
+
+          This routine  is provided  by Borland  and will  cause our
+          program to delay  so you can see  the "hello world" before
+          DDPLUS exits and clears the screen.  The string "Hello
+          World!" looks pretty  plain, doesn't it?   Maybe we should
+          put something a bit more impressive in, such as the user's
+          name.    This   would    involve   using   the   variables
+          USER_FIRST_NAME  and USER_LAST_NAME.  The  modification is
+          simple enough:
+
+              Change line 7 from:
+
+              {7} swriteln('Hello World!');
+
+              to:
+
+              {7} swriteln('Hello, '+user_first_name+' '+
+                  user_last_name+'!');
+
+          As you may have noticed, I  used plus signs (+) instead of
+          commas  (,)  to  separate  the  string  parameters  in the
+          SWRITELN line.  With a standard WRITELN statement, you may
+          use as many  variables as you wish,  but with SWRITELN, we
+          are  limited  to  1 string  variable.   The  point  is, TP
+          requires us  to merge  our string  variables together with
+          the plus sign.
+
+          We will now dig deeper into some interactive communication
+          with the user. The best way to do this is with a sample program.
+          Our last sample, HLODOOR was pretty plain, so let's write
+          something that is a bit more exciting.
+
+          The following is NUMDOOR.PAS: a simple little game
+          designed to demonstrate some interactive communication
+          with the user.
+
+          { 1} program numdoor;
+          { 2}
+          { 3} uses ddplus;
+          { 4}
+          { 5} procedure DoTheTitle;
+          { 6} begin;
+          { 7}  sclrscr;
+          { 8}  swriteln('Hello, '+user_first_name+
+          { 9}          ' '+user_last_name+
+          {10}          '. Welcome to NumDoor!');
+          {11}  swriteln('');
+          {12} end;
+          {13}
+          {14} procedure playgame;
+          {15} var
+          {16}  thenum: word;
+          {17}  playerguess: word;
+          {18}  guessnum: byte;
+          {19}  done: boolean;
+          {20}  tempstr: string;
+          {21} begin;
+          {22}  swriteln('I''m thinking of a number.'+
+          {23}           ' Can you guess what it is?');
+          {24}  swriteln('');
+          {25}  guessnum:=0;
+          {26}  randomize;
+          {27}  thenum:=random(100)+1;
+          {28}  done:=false;
+          {29}  while not done do begin;
+          {30}   inc(guessnum);
+          {31}   swrite('Guess #');
+          {32}   str(guessnum,tempstr);
+          {33}   swrite(tempstr);
+          {34}   swrite(': ');
+          {35}   sread_num_word(playerguess);
+          {36}   if playerguess>thenum then swriteln('Lower!') else
+          {37}   if playerguess<thenum then swriteln('Higher!') else
+          {38}    if playerguess=thenum then begin;
+          {39}     swriteln('Correct!');
+          {40}     done:=true;
+          {41}    end;
+          {42}   if guessnum=10 then done:=true;
+          {43}  end; {while}
+          {44}  if thenum<>playerguess then begin;
+          {45}   swriteln('You Lost!');
+          {46}   str(thenum,tempstr);
+          {47}   swriteln('The number was '+tempstr+'.');
+          {48}  end;
+          {49} end;
+          {50}
+          {51} procedure waitforkey;
+          {52} var
+          {53}  ch: char;
+          {54} begin;
+          {55}  swriteln('');
+          {56}  swriteln('Press any key to continue.');
+          {57}  sread_char(ch);
+          {58} end;
+          {59}
+          {60} begin;
+          {61}  initdoordriver('GAME.CTL');
+          {62}  dothetitle;
+          {63}  playgame;
+          {64}  waitforkey
+          {65} end.
+
+              Some of you were asking for a real door.. Well, there
+          it is. All 62 lines worth.
+
+              First lets look at an overview of the structure of
+          NUMDOOR. We've got three main procedures: DoTheTitle,
+          PlayGame, and WaitForKey. These procedures are pretty self
+          explanatory. DoTheTitle displays a little title
+          information about NUMDOOR. PlayGame performs the actual
+          task of playing the game, and WaitForKey waits for the
+          user to press a key once the game is over.
+
+              Let's go through the program section by section. At
+          the very top, you'll notice lines one and three. Line 1
+          (Program NumDoor;) is simply us formally telling TP the
+          name of our program. Line 2 (Uses DDPLUS;) is the
+          all-important "uses" statement which tells TP that we will
+          be using the DDPLUS TPU.
+
+                             Procedure DoTheTitle
+
+              The first procedure, DoTheTitle displays a little
+          introduction to the user so he knows where he is. Let's
+          look inside this procedure and see how it works:
+
+              LINE 7: SCLRSCR;
+
+              This is a DDPLUS procedure which we have not
+          introduced before. Sclrscr is DDPLUS's compliment to
+          the Turbo Pascal clrscr procedure. The clrscr procedure is
+          provided by TP to allow us to clear the screen. If you're
+          familiar with basic, then this is equivalent to a CLS.
+          Obviously, we will need to clear both the remote and the
+          local screens, so that's why we have to use DDPLUS's
+          Sclrscr.
+
+              LINES 8-10: SWRITELN('Hello, '+user_first_name+ .....
+
+              These lines display the introduction. As we learned in
+          part one of this tutorial, SWRITELN is DDPLUS's
+          compliment to Turbo Pascal's writeln procedure. You may
+          notice that I have separated the parameters across three
+          lines. This is perfectly legal - as long as the individual
+          components include plus (+) signs in between them, we can
+          split it up that way.
+              Another important note about this line: We include the
+          variables USER_FIRST_NAME and USER_LAST_NAME. These were
+          discussed in part one. For those who may have missed it,
+          DDPLUS places the user's first and last names into
+          those two respective variables. Sticking them in the
+          SWRITELN allows us to be a bit more personal to the user.
+
+              LINE 11: SWRITELN('');
+
+              You may be wondering, what is the point of writing
+          _nothing_ to the screen? The point is, like TP's writeln,
+          swriteln will output a CR/LF sequence. So even if we do
+          not write any data, the Carriage Return still goes out.
+          The effect is a blank line.
+
+                              Procedure PlayGame
+
+              PlayGame is where all of the real work takes place.
+          Let's take a minute to talk about what exactly the "game"
+          is that we are playing.
+              The game is a very common number guessing game. The
+          computer generates a random number and the user gets ten
+          shots to guess what it is. If the user guesses
+          incorrectly, the computer will tell whether he needs to go
+          "higher" or "lower". Now that we know what we want to do,
+          lets see how we would go about doing it. In pseudocode,
+          here's what we need to do:
+
+              1) Generate a random number
+              2) Ask the user for a guess
+              3) Compare the user's guess to our random number.
+              4) Say "lower", "higher", or "correct" based on the
+                 outcome of #3's comparison.
+              5) Loop back to 2 until either the user guesses the
+                 number correctly or uses up all ten tries.
+              6) If the user used up all ten tries, tell him he
+                 lost.
+
+              That's our strategy. Now, let's go thought the actual
+          code.
+
+              LINES 16-20: Variable Declarations
+
+              We need a multitude of variables to store some of our
+          information in. THENUM is a word variable which will hold
+          the random number which we generate. PLAYERGUESS is
+          another word to hold the player's current guess. GUESSNUM
+          is a counter to hold how many times the user has guessed.
+          DONE is a boolean to tell us when we are done. And
+          finally, TEMPSTR is a temporary string which we will
+          discuss when we come to it.
+
+              LINES 22-24: SWRITELN('I''m thinking of .....
+
+              These lines comprise a little instruction that we give
+          the user. They're just simple swriteln statements, similar
+          to the ones we encountered in DoTheTitle.
+
+              LINE 25: GUESSNUM:=0;
+
+              Since Turbo Pascal does not initialize our variables,
+          we will have to do it ourselves. Guessnum is our counter
+          of how many guesses the user has made. Since he hasn't
+          made any yet, we've got to set it to zero.
+
+              LINE 26: RANDOMIZE;
+
+              The Randomize procedure is provided by Turbo Pascal to
+          randomize TP's random number generator. Without it, the
+          game would pick the same random number each time it runs.
+
+              LINE 27: THENUM:=RANDOM(100)+1
+
+              Here is where we get our random number. The random
+          function returns a number between zero and it's parameter
+          minus one. (i.e. Random(100) will include 0..99, not 100)
+          So we add 1 to it to get numbers between 1 and 100.
+
+              LINE 28: DONE:=FALSE;
+
+              Right now, we aren't done yet, (we haven't even hardly
+          started!) so we'd better set our variable accordingly.
+
+              LINE 29: WHILE NOT DONE DO BEGIN;
+
+              Line 29 sets up our "loop" which will ask the user for
+          up to ten guesses. We want to keep going as long as DONE
+          is not true. The loop consists of lines 29-43 which ask
+          the user for his guess and check it's validity.
+
+              LINE 30: INC(GUESSNUM);
+
+              We're on the first guess, so set guessnum accordingly.
+
+              LINES 31-34: SWRITE('Guess #' .....
+
+              These lines prompt the user for his guess. Although
+          they may seem complicated, they are really nothing more
+          than the simple SWRITE statements that we have seen
+          before. We just need to do some "magic" to manipulate our
+          data.
+              Let me explain our problem: SWRITE/SWRITELN only
+          accept string data. But, our variable GUESSNUM is a byte
+          variable which holds numeric information. So how do we get
+          this data into something we can use? The answer is that we
+          use Turbo Pascal's STR procedure. STR is a very handy
+          procedure which converts a numeric format variable to a
+          string format variable. So, when we say
+          STR(GUESSNUM,TEMPSTR), we are telling pascal to "take the
+          number in guessnum, convert it to a string, and place it
+          in tempstr".
+              Once this has been done, TEMPSTR now contains our
+          number which we can send out to swrite with no problem.
+
+              LINE 35: SREAD_NUM_WORD(PLAYERGUESS);
+
+              This line the major new concept that we are trying to
+          introduce. SREAD_NUM_WORD is a DDPLUS procedure which
+          will read a word variable from the user. It handles all
+          the details of waiting for the user to press keys,
+          converting the data to a word, etc and just gives us a
+          nice word variable.
+              This is where the "interaction" takes place. Until
+          now, we have just been displaying information to the user.
+          Now, we ask the user for some information back.
+          Specifically, we ask him for his guess. The guess is
+          stored in the variable PLAYERGUESS.
+
+              LINES 36-41: If playerguess>thenum then ....
+
+              This block comprises the code to test the player's
+          guess and act upon the results. We display "higher" or
+          "lower" if the number is higher or lower and if the user's
+          guess is correct, we display "correct" and set DONE to
+          true to end our loop.
+              This code is all standard pascal stuff (with some
+          swrites thrown) in so I won't go into too much detail
+          here. We've got to try to stick to the DDPLUS-related
+          things or our little tutorial could get very big very
+          quickly.
+
+              LINE 42: IF GUESSNUM=10 THEN DONE:=TRUE;
+
+              If we're at the tenth guess, then it's time to end our
+          loop.
+
+              LINES 44-48: IF PLAYERGUSS<>THENUM THEN BEGIN; ....
+
+              We could have exited the loop for one of two reasons:
+          1) The user guessed correctly and DONE was set to true or
+          2) The user ran out of turns. These lines will check and
+          see if the user's guess was correct. If it was not, then
+          we got to break the bad news to him - he lost.
+              This code also includes our little trick of using STR
+          to convert the data. In this case, we have THENUM and we
+          need to convert it to a string so we can tell the user
+          what the number was. It works identically to the situation
+          we had in lines 31-34.
+
+                             Procedure WaitForKey
+
+              After we have finished PlayGame, we need to have a
+          little pause so the user gets to absorb the full impact of
+          his game playing. We could use a simple DELAY(2000) for a
+          20 second delay, but we are out to demonstrate interactive
+          communication, so let's wait for a keypress.
+              I'm not going into this line-by-line as it is such a
+          simple procedure. Rather, I'll describe what it does.
+          First, we tell the user we want him to hit a key with a
+          SWRITELN statement.
+              Then, we use DDPLUS's SREAD_CHAR procedure to read
+          a single character. SREAD_CHAR will wait for a key and
+          then return it to us. We used the variable CH to hold this
+          character.
+
+                              The Main Procedure
+
+              The main procedure, comprising lines 60-65 executes
+          all of our other procedure. Please note that similar to
+          HLODOOR, we had to call INITDOORDRIVER() to get DDPLUS
+          setup and ready for use.
+              After that, we just called DoTheTitle, PlayGame, and
+          WaitForKey in order. Then, we exit.
+
+                             Interactive Routines
+
+              We have introduced two new very important routines:
+          SREAD_NUM_WORD and SREAD_CHAR. DDPLUS includes a whole
+          set of similar routines for doing similar things. Here's a
+          listing of them:
+
+              SREAD(s: string);              Reads in a string
+
+              SREAD_NUM(i: integer);         Reads in an integer
+
+              SREAD_NUM_WORD(w: word);       Reads in a word
+
+              SREAD_NUM_LONGINT(l: longint); Reads in a longint
+
+              SREAD_CHAR(CH: CHAR);          Reads in a char
+
+              The first four of these routines will read in data
+          until the user presses the return key. For example
+          "1234"<return>. They allow the user to backspace back and
+          forth to correct his mistakes. These are very similar to
+          Turbo Pascal's READLN and Basic's INPUT statements.
+              The fifth procedure (SREAD_CHAR) will wait for a
+          character and return that character. It's simply for when
+          you want one character and only one character. The user
+          can't correct his mistakes with backspace or anything.
+          This routine also does not echo to the screen.
+              SREAD_CHAR performs almost identically to Turbo
+          Pascal's READKEY function. In Turbo Pascal you would use
+          ch:=READKEY; With DDPLUS, use SREAD_CHAR(CH).
+
+          REFERENCE - IMPORTANT THINGS
+          ----------------------------
+
+          -> What happens when the user runs out of time, sleep
+          -> disconnects, or drops carrier?
+
+          DDPLUS will HALT. This will cause an immediate
+          termination of the door. If your door needs to save any
+          data then you should use an EXIT PROCEDURE to save the
+          data. For example:
+
+          {$F+} procedure myexit; {$F-}
+          begin;
+           save_our_data;
+           exitproc:=exitsave;
+          end;
+
+          {main program}
+          begin;
+           InitDoorDriver......
+           ExitSave:=Exitproc;
+           ExitProc:=@myexit;
+           .......
+          end.
+
+          This will setup MYEXIT so it is run whenever your program
+          exits for any reason. This is the best way to trapped
+          carrier dropped, out of time, etc.
+
+          NOTE #1: The carrier, time left, and sleep disconnect are
+          only tested when DDPLUS is waiting for a keypress
+          (i.e. sread_char, sread, etc)
+
+          NOTE #2: If checktime=false then DDPLUS will not check
+          to see if the user is out of time.
+
+          -> How do you use ANSI in your programs?
+
+          You can use ANSI by two methods:
+
+           1) By using the set_foreground, set_background, and
+              sclrscr procedures, you can perform some basic ANSI
+              functions. DDPLUS will automatically enable these
+              fucntions when ANSI is available and disable it when
+              not.
+
+           2) If you set ANSION:=TRUE, then you can just SWRITE your
+              ansi sequences directly to the screen. When you turn
+              ANSION on, it will slow down screen writes, so it is
+              advisable to do it only when necessary.
+
+ --------------------------------------------------------------------------
+ This ends the copyrighted Scott Baker part of the documentation.
+ The rest of this document is from Steven Lorenz and Bob Dalton.
+ --------------------------------------------------------------------------
+                                   
+                              CREDITS:
+                              --------
+ This relatively small section is just to recognize the people who have made
+ the DDPLUS package a possibility.
+
+ Scott Baker       -=*=-  The authors of the original DoorDriver Kit
+ and                       are to be thanked for releasing the
+ Derrick Parkhurst         source code to their great kit!  Without
+                           that act of kindness DDPLUS would NOT
+                           be possible.  Hopefully Steve and I
+                           have done your kit justice and given it
+                           a new lease on life in the programming
+                           world. Scott is the author of several
+                           door games, most notably Land of Devastation,
+                           which uses the original doordriver kit.
+ 
+ Steven Lorenz      -=*=- The author of the enhanced add on package
+                           to Scott Bakers DoorDriver Kit. Thanks to
+                           his code modifications, add ons and enhancements
+                           DDPLus is a much more complete and capable
+                           package then originally released in the
+                           DoorDriver Kit. He is also responsible for
+                           the DDPlus setup program which he freely donated.
+                           Steve is the author of several door games, most
+                           notably Railroad Empires, Romans At War, and
+                           Empires at War, all of which use DDPlus.
+
+ Bob Dalton         -=*=- The author of most of the documentation in this
+                           package and contributor of the OVERLAY.ZIP,
+                           LOCKING.ZIP, ELOG.ZIP and many other items in
+                           this kit. Bob is the author of several door
+                           games, such as GodFather of Crime, Rise To
+                           Power, Task Force Broadside, Ship of the Line,
+                           Grunt Fest, Way Freight and the Adventure Door
+                           Game Toolkit, all of which use DDPLus.
+
+ Andy Stewart       -=*=- The author of the IBBS.ZIP portion of the
+                           DDPLUS kit. Great job Andy!
+
+ Tom Morgan         -=*=- The author of the RIPLINK.ZIP portion of DDPLUS
+                           for deciding to make his RipLink package
+                           freeware and include it in the DDPLus kit. 
+ 
+ DESQview is a registered trademark of Quarterdeck Office Systems.
+ Ripscript & Ripterm are registered trademarks of TeleGrafix Communications.
+
+                           Where to reach us
+                           -----------------
+
+ We can usually be reached at the following places:      
+
+ Steven Lorenz - The Officer Club BBS - Telephone Number: 818-249-8579 (CA)
+
+ Bob Dalton    - The TANSTAFL BBS - Telephone Number: 501-741-5699 (AR).
+                 FIDO Node Number: 1:391/3010
+
+ Scott Baker   - Although he NO longer supports his original DoorDriver
+                  kit I am sure he would appreciate any free program you
+                  were to offer him. He can be reached at his Not Yet Named
+                  BBS at 602-544-4655 (AZ) or FIDO Node Number 1:300/9. Keep
+                  in mind he will NOT answer any questions about this kit!
+
+ NOTE:  Both Steve Lorenz and Bob Dalton habitually monitor the FIDO door
+         related National and International echos if you have questions.
+         Bob Dalton also monitors the Pascal FIDO echo as well. Address
+         ALL questions about DDPlus to either Steve or Bob and no one
+         else, assuming you want an answer that is.  Since this package
+         is FREEWARE, please do not expect us to send you a reply back at
+         our expense, either call back for it or poll us via FIDO 48 hours
+         after you netmailed the question.
+
+                   Bug Reports/Comments/Suggestions
+                   --------------------------------
+ We have made every attempt to make sure this package is free of bugs, BUT
+ the possibility always exists that one may have been missed by us. 
+ If you find a bug, or have a suggestion or comment to make which would make
+ future versions of DDPlus even better, then netmail Bob Dalton or post a
+ message on one of our BBS's. We do read ALL of them and those people that
+ lead us to find a bug or generate a better package will receive credit in
+ the next DDPlus version published. PLEASE DO NOT NOTIFY US OF PROBLEMS AND
+ EXPECT US TO FIX THEM IF YOU HAVE FAILED TO PROVIDE US WITH COMPLETE
+ SPECIFIC INFORMATION ON THE PROBLEM!  
+
+                          FIDO INFORMATION
+                          ----------------
+ Bob Dalton's BBS supports file "freq"ing at 9600 baud or above. Just call
+ 1:391/3010. He also carries a door library of over 400 of the all time best
+ door games which he tries to keep current.  For a list of these doors just
+ freq "DOORS". We are always adding new things to DDPlus so most likely
+ there will be a later version of the program available on one of our BBS's
+ then the one you have. For a current version of DDPLUS you can call
+ either Steve's or Bob's BBS and download it, or if you are a member of
+ the FIDO network and have a 9600 baud or above modem you can freq the
+ magic name "DDPLUS" for the latest version.  Bob Dalton carries a large
+ Turbo Pascal support file section. If you would like a list of these files
+ just freq "FILES" from him. If you are a door game/program writer
+ why not send Bob or Steve a copy of your game/program?  If you have a more
+ current version of a door then we have, please consider sending us a copy
+ as a token of your appreciation for the service we offer at NO cost to you.
+ Thanks!

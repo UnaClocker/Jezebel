@@ -1,0 +1,12 @@
+procedure Sortit;
+begin
+  GetReadyToSave;
+  reset (Scorefile);
+  seek (Scorefile, usernum);
+  write (Scorefile, Scores);
+  close (Scorefile);
+  sort;
+  reset (Scorefile);
+  entering_game := false;
+  finduser;
+end;
